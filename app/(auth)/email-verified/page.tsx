@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { GalleryVerticalEnd, CheckCircle, AlertCircle } from "lucide-react";
@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export default function EmailVerifiedPage() {
+function EmailVerifiedContent() {
   const searchParams = useSearchParams();
 
   // Gunakan useMemo untuk menghindari setState dalam useEffect
@@ -31,7 +31,7 @@ export default function EmailVerifiedPage() {
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
             <GalleryVerticalEnd className="size-4" />
           </div>
-          TK Harapan Bunda
+          Bengkel App
         </Link>
 
         <Card>
@@ -75,5 +75,19 @@ export default function EmailVerifiedPage() {
         </Card>
       </div>
     </div>
+  );
+}
+
+export default function EmailVerifiedPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-svh items-center justify-center">
+          Memuat...
+        </div>
+      }
+    >
+      <EmailVerifiedContent />
+    </Suspense>
   );
 }
